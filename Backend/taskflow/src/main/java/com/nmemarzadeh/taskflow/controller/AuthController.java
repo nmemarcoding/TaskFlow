@@ -1,6 +1,7 @@
 package com.nmemarzadeh.taskflow.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,11 +70,12 @@ public class AuthController {
                                 String token = jwtUtil.generateToken(existingUser.getUsername());
                                 UserDto userDto = new UserDto(existingUser);
                                 
-                                Map<String, Object> response = new HashMap<>();
-                                response.put("token", token);
-                                response.put("user", userDto);
-                                
-                                return ResponseEntity.ok(response);
+                                HttpHeaders headers = new HttpHeaders();
+                                headers.set("Authorization", "Bearer " + token); // Set token in header
+
+                                return ResponseEntity.ok()
+                                        .headers(headers)
+                                        .body(userDto); // Only send user info in body
                             } else {
                                 return ResponseEntity.status(401).body("Invalid password");
                             }

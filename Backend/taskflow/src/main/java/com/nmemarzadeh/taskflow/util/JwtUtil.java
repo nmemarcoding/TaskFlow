@@ -3,9 +3,9 @@ package com.nmemarzadeh.taskflow.util;
 import java.security.Key;
 import java.util.Date;
 
-import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import io.jsonwebtoken.Claims;
@@ -46,7 +46,7 @@ public class JwtUtil {
 
     public String extractToken(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        if (StringUtils.hasText(header) && header.startsWith("Bearer ")) {
+        if (header != null && !header.isEmpty() && header.startsWith("Bearer ")) {
             return header.substring(7);
         }
         return null;
