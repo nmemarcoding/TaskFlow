@@ -12,8 +12,6 @@ import com.nmemarzadeh.taskflow.dto.UserDto;
 import com.nmemarzadeh.taskflow.model.User;
 import com.nmemarzadeh.taskflow.service.UserService;
 import com.nmemarzadeh.taskflow.util.JwtUtil;
-import java.util.Map;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api")
