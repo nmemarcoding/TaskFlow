@@ -48,10 +48,12 @@ public class TaskService {
     }
 
     // delete a task
-    public void deleteTask(Long taskId) {
+    public Task deleteTask(Long taskId) {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + taskId));
+            .orElseThrow(() -> new IllegalArgumentException("Task not found with id: " + taskId));
         taskRepository.delete(task);
+        return task;
     }
+
 
 }

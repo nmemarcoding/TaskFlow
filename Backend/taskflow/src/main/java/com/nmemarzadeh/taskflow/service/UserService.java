@@ -36,4 +36,6 @@ public class UserService {
     public boolean checkPassword(User user, String rawPassword) {
         return encoder.matches(rawPassword, user.getPasswordHash());
     }
+
+    
 }

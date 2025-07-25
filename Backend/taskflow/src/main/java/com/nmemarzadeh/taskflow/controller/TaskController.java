@@ -8,6 +8,9 @@ import com.nmemarzadeh.taskflow.service.TaskService;
 import com.nmemarzadeh.taskflow.service.UserService;
 import com.nmemarzadeh.taskflow.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,4 +71,57 @@ public class TaskController {
                     .body("Error creating task: " + e.getMessage());
         }
     }
+
+    @GetMapping("/tasks")
+    public ResponseEntity<?> getTasks(HttpServletRequest request) {
+        try {
+            jwtUtil.requireValidToken(request);
+            String username = jwtUtil.extractUsernameFromRequest(request);
+
+            if (username == null || username.isBlank()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not extract username from token");
+            }
+
+            User user = userService.findByUsername(username)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+            List<Task> tasks = taskService.getTasksByUserId(user.getUserId());
+
+            tasks.forEach(task -> {
+                User taskUser = task.getUser();
+                if (taskUser != null) {
+                    taskUser.setPasswordHash(null);
+                    taskUser.setCreatedAt(null); // or setPassword(null);
+                }
+            });
+
+            // send tasks to the client
+            return ResponseEntity.ok(tasks);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error fetching tasks: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<?> deleteTask(@PathVariable Long taskId, HttpServletRequest request) {
+        try {
+            jwtUtil.requireValidToken(request);
+            
+            Task task = taskService.deleteTask(taskId);
+            
+            if (task == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found");
+            }
+            return ResponseEntity.ok("Task deleted successfully");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting task: " + e.getMessage());
+        }
+    }
+
 }
