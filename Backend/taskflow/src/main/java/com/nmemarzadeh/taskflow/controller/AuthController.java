@@ -13,6 +13,8 @@ import com.nmemarzadeh.taskflow.model.User;
 import com.nmemarzadeh.taskflow.service.UserService;
 import com.nmemarzadeh.taskflow.util.JwtUtil;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -87,4 +89,22 @@ public class AuthController {
         }
     }
 
+    // endpoint to check usr token validity from header
+    @PostMapping("/check-token")
+    public ResponseEntity<?> checkToken(HttpServletRequest request) {
+        try {
+            String token = request.getHeader("Authorization").split(" ")[1]; // Extract token from header
+            if (token == null || !jwtUtil.validateToken(token)) {
+                return ResponseEntity.status(401).body("Invalid or expired token");
+            }
+            String username = jwtUtil.extractUsernameFromRequest(request);
+            return ResponseEntity.ok("Token is valid for user: " + username);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error checking token: " + e.getMessage());
+        }
+    }
 }
+    
+
+
+ 
