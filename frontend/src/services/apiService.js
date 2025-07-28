@@ -22,7 +22,11 @@ api.interceptors.response.use(
   (response) => {
     const newToken = response.headers['authorization'];
     if (newToken) {
-      localStorage.setItem('authToken', newToken); // Store/refresh token
+      localStorage.setItem('authToken', newToken);
+       // store user info 
+
+        const userInfo = response.data
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
     }
     return response;
   },
@@ -32,6 +36,7 @@ api.interceptors.response.use(
 // Logout utility to clear the stored token
 export const logout = () => {
   localStorage.removeItem('authToken');
+  localStorage.removeItem('userInfo');
 };
 
 // Token validation utility (manual check)

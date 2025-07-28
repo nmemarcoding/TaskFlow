@@ -124,4 +124,21 @@ public class TaskController {
         }
     }
 
+    // update task status
+    @PutMapping("/{taskId}/status")
+    public ResponseEntity<?> updateTaskStatus(@PathVariable Long taskId, @RequestParam TaskStatus status, HttpServletRequest request) {
+        try {
+            jwtUtil.requireValidToken(request);
+            Task updatedTask = taskService.updateTaskStatus(taskId, status);
+            if (updatedTask == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found");
+            }
+            return ResponseEntity.ok("Task status updated successfully");
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating task status: " + e.getMessage());
+        }
+    }
 }

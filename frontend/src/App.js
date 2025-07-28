@@ -5,8 +5,8 @@ import Navbar from './components/Navbar';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import TasksPage from './pages/TasksPage';
-import ProtectedRoute from './components/ProtectedRoute'; // ✅ Import
-
+import ProtectedRoute from './components/ProtectedRoute';
+import CreateTaskPage from './pages/CreateTaskPage';
 const Home = () => (
   <div className="p-4">
     <h2 className="text-2xl font-bold mb-4">Home Page</h2>
@@ -40,6 +40,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/tasks/create"
+          element={
+            <ProtectedRoute>
+              <CreateTaskPage />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
     </Router>
   );
