@@ -21,3 +21,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.firebaserc
+firebase-debug.log
+firebase
+firebase.json
+firebase.lock.json
+
+hosting.YnVpbGQ.cache
