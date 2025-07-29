@@ -7,13 +7,9 @@ import TasksPage from './pages/TasksPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateTaskPage from './pages/CreateTaskPage';
 import ServerGuard from './components/ServerGuard';
+import HomePage from './pages/HomePage';
 
-const Home = () => (
-  <div className="p-4">
-    <h2 className="text-2xl font-bold mb-4">Home Page</h2>
-    <p>Welcome to TaskFlow application</p>
-  </div>
-);
+
 
 function App() {
   return (
@@ -30,7 +26,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <Home />
+                <HomePage />
               </ProtectedRoute>
             }
           />
