@@ -3,6 +3,7 @@ package com.nmemarzadeh.taskflow.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,6 +103,16 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Error checking token: " + e.getMessage());
         }
+    }
+
+    // endpoint to check server is running
+    @GetMapping("/ping")
+    public ResponseEntity<?> ping() {
+        try {
+            return ResponseEntity.ok("Server is running");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error pinging server: " + e.getMessage());
+        }       
     }
 }
     
