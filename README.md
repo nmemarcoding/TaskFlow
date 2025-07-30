@@ -70,9 +70,9 @@ Once you register and log in, you can create tasks, view your task list, update 
 
 ### Prerequisites
 
-* **Java 17+**
+* **Java 21+**
 * **Maven 3.6+**
-* **Node.js 14+** & **npm**
+* **Node.js 21.4.0+** & **npm**
 * **PostgreSQL** instance (local or managed)
 
 ### Backend Setup
