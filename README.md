@@ -46,7 +46,7 @@ Once you register and log in, you can create tasks, view your task list, update 
 
 * **Backend**
 
-  * Java 17
+  * Java 21
   * Spring Boot
   * Spring Security + JWT
   * JPA / Hibernate
