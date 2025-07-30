@@ -26,20 +26,19 @@ Live Demo: [https://taskflow-fb731.web.app/](https://taskflow-fb731.web.app/)
 
 ## Overview
 
-I developed TaskFlow using **Spring Boot** for the backend and **React** for the frontend. The app features JWT-based authentication, secure password hashing (BCrypt), and a PostgreSQL database to persist user data and tasks.
+I developed TaskFlow using **Spring Boot** for the backend and **React** for the frontend. The application features JWT-based authentication, secure password hashing with BCrypt, and a PostgreSQL database to store users and tasks.
 
-Once you register and log in, you can create, view, update, and delete tasks. You’ll also find powerful filters, search, and sorting functionality to keep your workflow organized.
+Once you register and log in, you can create tasks, view your task list, update task status, delete tasks, and organize your workflow with search, filters, and sorting.
 
 ---
 
 ## Features
 
-* **User Authentication**: Register and log in with JWT tokens.
-* **Task Management**: Create, read, update (status), and delete tasks.
-* **Filtering & Search**: Filter by status, search by title/description, sort by creation or due date.
-* **Responsive UI**: Built with React and Tailwind CSS.
-* **Server Health Check**: Automatic server availability monitoring with retries.
-* **CORS Enabled**: Supports cross-origin requests.
+* **User Authentication**: Register and log in securely with JWT tokens.
+* **Task Management**: Create new tasks, view all tasks, update status (Not Started, In Progress, Completed), and delete tasks.
+* **Search, Filter & Sort**: Search tasks by title or description, filter by status, and sort by creation date or due date.
+* **Live Server Health Monitoring**: Automatic server availability checks with retry logic when the backend is unavailable.
+* **Responsive UI**: Built with React, React Router, and Tailwind CSS for a clean, responsive design.
 
 ---
 
@@ -62,8 +61,8 @@ Once you register and log in, you can create, view, update, and delete tasks. Yo
 
   * Maven
   * npm
-  * Jest + React Testing Library (frontend)
   * JUnit (backend)
+  * Jest + React Testing Library (frontend)
 
 ---
 
@@ -124,10 +123,11 @@ Once you register and log in, you can create, view, update, and delete tasks. Yo
 ## Usage
 
 1. **Register** a new account or **log in** with existing credentials.
-2. **Create** tasks by clicking **Create Task** and filling out the form.
-3. **View** your task list on the **Tasks** page.
-4. **Update** task status via the dropdown or **Delete** unwanted tasks.
-5. **Search**, **filter**, and **sort** to organize your workflow.
+2. **Create Task** by filling out the title, description, status, and due date.
+3. **View Tasks** on the Tasks page, where you can see all your tasks.
+4. **Update Status** of a task via the dropdown menu.
+5. **Delete** a task you no longer need.
+6. **Organize** your list with search, status filters, and sorting options.
 
 ---
 
@@ -144,12 +144,12 @@ Once you register and log in, you can create, view, update, and delete tasks. Yo
 
 ### Tasks
 
-| Endpoint                     | Method | Description                           |
-| ---------------------------- | ------ | ------------------------------------- |
-| `/api/tasks/create`          | POST   | Create a new task                     |
-| `/api/tasks/tasks`           | GET    | Retrieve tasks for authenticated user |
-| `/api/tasks/{taskId}/status` | PUT    | Update status of a specific task      |
-| `/api/tasks/{taskId}`        | DELETE | Delete a specific task                |
+| Endpoint                     | Method | Description                               |
+| ---------------------------- | ------ | ----------------------------------------- |
+| `/api/tasks/create`          | POST   | Create a new task                         |
+| `/api/tasks/tasks`           | GET    | Retrieve tasks for the authenticated user |
+| `/api/tasks/{taskId}/status` | PUT    | Update status of a specific task          |
+| `/api/tasks/{taskId}`        | DELETE | Delete a specific task                    |
 
 ---
 
