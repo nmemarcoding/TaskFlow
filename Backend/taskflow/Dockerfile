@@ -1,21 +1,13 @@
-# Use lightweight JDK 21 base image
-FROM eclipse-temurin:21-jdk-alpine
-
-# Set working directory inside container
+# ===== Build Stage =====
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
-
-# Copy Maven wrapper & pom.xml first (to cache dependencies)
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-
-# Download dependencies only (layer caching)
-RUN ./mvnw dependency:go-offline -B
-
-# Copy all source code
+COPY pom.xml .
 COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Package the application
-RUN ./mvnw package -DskipTests
-
-# Run the JAR file
-CMD ["java", "-jar", "target/taskflow-0.0.1-SNAPSHOT.jar"]
+# ===== Run Stage =====
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
