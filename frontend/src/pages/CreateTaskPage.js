@@ -158,6 +158,7 @@ const CreateTaskPage = () => {
                   className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
+                  onClick={(e) => e.target.showPicker?.()}
                   required
                 />
                 <svg className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
