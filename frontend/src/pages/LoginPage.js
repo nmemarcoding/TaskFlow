@@ -65,7 +65,7 @@ const LoginPage = () => {
           </div>
 
           {/* Login Card */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+          <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
             <div className="space-y-6">
               {/* Email Field */}
               <div className="space-y-2">
@@ -121,8 +121,7 @@ const LoginPage = () => {
 
               {/* Submit Button */}
               <button
-                type="button"
-                onClick={handleSubmit}
+                type="submit"
                 disabled={isSubmitting}
                 className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2"
               >
@@ -154,7 +153,7 @@ const LoginPage = () => {
                 </Link>
               </p>
             </div>
-          </div>
+          </form>
 
           {/* Additional Links */}
           <div className="mt-6 text-center">

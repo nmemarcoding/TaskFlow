@@ -9,6 +9,34 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+/* Fix: prevent the native datetime-local control from overlapping the custom SVG icon
+   - Add right padding so the input content doesn't flow under the icon
+   - Hide native picker/clear/spin indicators (WebKit browsers)
+   - Ensure the custom absolute SVG sits above the input field */
+input[type="datetime-local"] {
+  padding-right: 2.75rem; /* room for the custom icon (approx 44px) */
+}
+
+/* WebKit browsers (Chrome, Safari) - hide native calendar/time picker and clear/spin buttons */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-clear-button,
+input[type="datetime-local"]::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Firefox: best-effort hide for any clear button pseudo-element */
+input[type="datetime-local"]::-moz-clear {
+  display: none;
+}
+
+/* Make sure the custom SVG placed with absolute positioning sits above the input */
+.relative > svg.absolute {
+  z-index: 2;
+}
 }
 
 code {
